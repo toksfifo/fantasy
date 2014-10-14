@@ -1,0 +1,19 @@
+<section data-ng-controller="TeamsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Teams</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="team in teams" data-ng-href="#!/teams/{{team._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="team.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="team.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="team.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!teams.$resolved || teams.length">
+    	No Teams yet, why don't you <a href="/#!/teams/create">create one</a>?
+    </div>
+</section>
