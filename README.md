@@ -1,3 +1,10 @@
+Premier Fantasy League
+=======
+
+:octocat: &nbsp;**Live Demo**: http://jogabonito.herokuapp.com
+
+This project is intended to be a football (soccer) fantasy league. It will be a website that accepts users and runs a league spanning the duration of the English Premier League season.
+
 [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
 [![Build Status](https://travis-ci.org/meanjs/mean.svg?branch=master)](https://travis-ci.org/meanjs/mean)
