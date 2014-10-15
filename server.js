@@ -31,7 +31,7 @@ require('./config/passport')();
  */
 
 // Get league standings
-request(config.kimono.URL + config.kimono.league.apiURL + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
+request(config.kimono.baseURL + config.kimono.apiURLs.league + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
 	//TODO: This works. Next step will be to set up webhooks to handle kimono POST
 	var result = JSON.parse(body);
 	console.log('The last successful run was on ' + result.lastsuccess);
@@ -39,7 +39,7 @@ request(config.kimono.URL + config.kimono.league.apiURL + '?apikey=' + config.ki
 });
 
 // Get the list of teams in the league
-request(config.kimono.URL + config.kimono.teams.apiURL + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
+request(config.kimono.baseURL + config.kimono.apiURLs.teams + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
 	//TODO: This works. Next step will be to set up webhooks to handle kimono POST
 	var result = JSON.parse(body);
 	console.log('The last successful run was on ' + result.lastsuccess);
@@ -47,7 +47,7 @@ request(config.kimono.URL + config.kimono.teams.apiURL + '?apikey=' + config.kim
 });
 
 // Get list of players in the teams
-request(config.kimono.URL + config.kimono.players.apiURL + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
+request(config.kimono.baseURL + config.kimono.apiURLs.players + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
 	//TODO: This works. Next step will be to set up webhooks to handle kimono POST
 	var result = JSON.parse(body);
 	console.log('The last successful run was on ' + result.lastsuccess);

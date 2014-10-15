@@ -7,17 +7,12 @@ module.exports = {
 		keywords: 'soccer, football, fantasy, league'
 	},
 	kimono: {
-		URL: 'https://www.kimonolabs.com/api/',
+		baseURL: 'https://www.kimonolabs.com/api/',
 		apiKey: process.env.KIMONO_KEY || '9f3de7fbf94a75608b4e10adb275c151',
-		secretToken: process.env.KIMONO_SECRET || '872UJIwbvM2K0e83jXQGGqlhHzqbWdOY',
-		league: {
-			apiURL: process.env.LEAGUE_API || 'dgbylo0g'
-		},
-		teams: {
-			apiURL: process.env.TEAMS_API || 'dgbylo0g'
-		},
-		players: {
-			apiURL: process.env.PLAYERS_API || 'dgbylo0g'
+		apiURLs:{
+			league: process.env.LEAGUE_API || 'dgbylo0g',
+			teams: process.env.TEAMS_API || '580q3d28',
+			players: process.env.PLAYERS_API || 'egsljlaq'
 		}
 	},
 	port: process.env.PORT || 3000,
@@ -28,7 +23,7 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/bootstrap/dist/css/bootstrap-theme.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
