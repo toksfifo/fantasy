@@ -1,4 +1,4 @@
-Premier Fantasy League
+Joga Bonito
 =======
 
 :octocat: &nbsp;**Live Demo**: http://jogabonito.herokuapp.com
