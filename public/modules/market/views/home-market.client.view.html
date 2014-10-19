@@ -1,5 +1,36 @@
-<section data-ng-controller="MarketController">
+<section data-ng-controller="MarketController" data-ng-init="find()">
 	<div class="page-header">
 		<h1>Market</h1>
+	</div>
+	<div class="col-sm-9">
+		<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-condensed table-hover">
+			<thead>
+				<tr>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Current Team</th>
+					<th>Position</th>
+					<th>Form</th>
+					<th>ID</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="player in players">
+					<td data-ng-bind="player.picture"></td>
+					<td data-ng-bind="player.name"></td>
+					<td data-ng-bind="player.user.displayName"></td>
+					<td data-ng-bind="player.position"></td>
+					<td data-ng-bind="player.averageRating"></td>
+					<td data-ng-bind="player.whoscoredId"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-3">
+		<div class="well well-lg">
+			<img ng-src="{{selectedImage}}">
+			<hr>
+			<p><strong ng-bind-html="selectedText"></strong></p>
+		</div>
 	</div>
 </section>
