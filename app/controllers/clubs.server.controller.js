@@ -6,14 +6,120 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Club = mongoose.model('Club'),
+	Player = mongoose.model('Player'),
+	data = require('../../config/data'),
+	async = require('async'),
 	_ = require('lodash');
+
+/**
+ * Reset db with clubs in data.js
+ */
+exports.reset = function (req, res) {
+	var response = {errors: []};
+
+	// drop the collections
+	var models = [Club, Player];
+	var dropIterator = function(Model_, callback){
+		var i = new Model_();
+		i.collection.drop(function(err){
+			callback(err);
+		});
+	};
+	async.forEach(models, dropIterator, function(err){
+		response.errors.push(err);
+	});
+
+	// index collections
+	mongoose.connection.db.collectionNames(function (err, names) {
+		var collections = ['clubs', 'players'];
+//		console.log(collections);
+		var indexIterator = function(collection_name, callback){
+			mongoose.connection.db.collection(collection_name, function (err, collection) {
+				var indexName = ''+collection_name+'Index';
+				console.log(indexName);
+				collection.ensureIndex({whoscoredId: 1}, {name: indexName, unique: true}, function(err, result){
+					callback(err);
+				});
+			});
+		};
+		async.forEach(collections, indexIterator, function(err) {
+			response.errors.push(err);
+
+			// populate clubs
+			var clubIterator = function (item, callback) {
+				var club = new Club({
+					whoscoredId: item.id,
+					name: item.name,
+					logo: item.logo,
+					games: {
+						played: item.games,
+						won: item.won,
+						drawn: item.draw,
+						lost: item.loss
+					},
+					goals: {
+						scored: item.scored,
+						conceded: item.conceded,
+						difference: item.diff
+					},
+					points: item.points
+				});
+
+				club.save(function (err) {
+					if (err) response.errors.push(errorHandler.getErrorMessage(err));
+
+					_(item.players).forEach(function (element) {
+						var player = new Player({
+							whoscoredId: element.id,
+							name: element.fullname,
+							bio: {
+								picture: element.picture,
+								country: element.country,
+								position: element.position,
+								age: element.age,
+								shirt: element.shirt,
+								height: element.height,
+								weight: element.weight
+							},
+							stats: {
+								minutes: element.minutes,
+								starts: element.starts,
+								subs: element.subs,
+								goals: element.goals,
+								assists: element.assists,
+								yellows: element.yellows,
+								reds: element.reds
+							},
+							averages: {
+								shooting: element.shots,
+								passing: element.passing,
+								heading: element.heading,
+								rating: element.average
+							},
+							motm: element.motm,
+							_club: club._id
+						});
+
+						player.save(function (err) {
+							if (err) response.errors.push(errorHandler.getErrorMessage(err));
+						});
+					});
+				});
+				callback();
+			};
+			async.forEachSeries(data, clubIterator, function(err){
+				response.errors.push(err);
+				res.redirect('/');
+			});
+		});
+	});
+};
 
 /**
  * Create a Club
  */
 exports.create = function(req, res) {
 	var club = new Club(req.body);
-	club.user = req.user;
 
 	club.save(function(err) {
 		if (err) {
