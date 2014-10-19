@@ -51,17 +51,13 @@ exports.reset = function (req, res) {
 					whoscoredId: item.id,
 					name: item.name,
 					logo: item.logo,
-					games: {
-						played: item.games,
-						won: item.won,
-						drawn: item.draw,
-						lost: item.loss
-					},
-					goals: {
-						scored: item.scored,
-						conceded: item.conceded,
-						difference: item.diff
-					},
+					gamesPlayed: item.games,
+					gamesWon: item.won,
+					gamesDrawn: item.draw,
+					gamesLost: item.loss,
+					goalsScored: item.scored,
+					goalsConceded: item.conceded,
+					goalsDifference: item.diff,
 					points: item.points
 				});
 
@@ -72,30 +68,24 @@ exports.reset = function (req, res) {
 						var player = new Player({
 							whoscoredId: element.id,
 							name: element.fullname,
-							bio: {
-								picture: element.picture,
-								country: element.country,
-								position: element.position,
-								age: element.age,
-								shirt: element.shirt,
-								height: element.height,
-								weight: element.weight
-							},
-							stats: {
-								minutes: element.minutes,
-								starts: element.starts,
-								subs: element.subs,
-								goals: element.goals,
-								assists: element.assists,
-								yellows: element.yellows,
-								reds: element.reds
-							},
-							averages: {
-								shooting: element.shots,
-								passing: element.passing,
-								heading: element.heading,
-								rating: element.average
-							},
+							picture: element.picture,
+							country: element.country,
+							position: element.position,
+							age: element.age,
+							shirt: element.shirt,
+							height: element.height,
+							weight: element.weight,
+							minutes: element.minutes,
+							starts: element.starts,
+							subs: element.subs,
+							goals: element.goals,
+							assists: element.assists,
+							yellows: element.yellows,
+							reds: element.reds,
+							averageShooting: element.shots,
+							averagePassing: element.passing,
+							averageHeading: element.heading,
+							averageRating: element.average,
 							motm: element.motm,
 							_club: club._id
 						});

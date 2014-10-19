@@ -24,57 +24,53 @@ var ClubSchema = new Schema({
 		type: String,
 		default: 'http://placehold.it/70x70&text=Club+Logo'
 	},
-	games: {
-		played: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
-		},
-		won: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
-		},
-		drawn: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
-		},
-		lost: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
+	gamesPlayed: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
 		}
 	},
-	goals: {
-		scored: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
-		},
-		conceded: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
-		},
-		difference: {
-			type: Number,
-			default: 0,
-			set: function (val) {
-				return (val === '-' || val === 'N/A') ? 0 : val;
-			}
+	gamesWon: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
+		}
+	},
+	gamesDrawn: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
+		}
+	},
+	gamesLost: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
+		}
+	},
+	goalsScored: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
+		}
+	},
+	goalsConceded: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
+		}
+	},
+	goalsDifference: {
+		type: Number,
+		default: 0,
+		set: function (val) {
+			return (val === '-' || val === 'N/A') ? 0 : val;
 		}
 	},
 	points: {
@@ -90,6 +86,6 @@ var ClubSchema = new Schema({
 			ref: 'Player'
 		}
 	]
-})/*.index({whoscoredId: 1, name: 1}, {name: 'whoscoredIdAndName', unique: true})*/;
+});
 
 mongoose.model('Club', ClubSchema);
