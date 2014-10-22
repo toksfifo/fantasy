@@ -72,7 +72,9 @@ exports.delete = function(req, res) {
 /**
  * List of Players
  */
-exports.list = function(req, res) { Player.find().sort('-created').populate('user', 'displayName').exec(function(err, players) {
+exports.list = function(req, res) {
+	var populateQuery = [{path: 'user', select: 'displayName'}, {path: '_club', select: 'name'}];
+	Player.find().populate(populateQuery).exec(function(err, players) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,7 +88,9 @@ exports.list = function(req, res) { Player.find().sort('-created').populate('use
 /**
  * Player middleware
  */
-exports.playerByID = function(req, res, next, id) { Player.findById(id).populate('user', 'displayName').exec(function(err, player) {
+exports.playerByID = function(req, res, next, id) {
+	var populateQuery = [{path: 'user', select: 'displayName'}, {path: '_club', select: 'name'}];
+	Player.findById(id).populate(populateQuery).exec(function(err, player) {
 		if (err) return next(err);
 		if (! player) return next(new Error('Failed to load Player ' + id));
 		req.player = player ;

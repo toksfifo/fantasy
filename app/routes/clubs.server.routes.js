@@ -5,6 +5,9 @@ module.exports = function(app) {
 	var clubs = require('../../app/controllers/clubs');
 
 	// Clubs Routes
+	app.route('/reset')
+		.get(users.requiresLogin, users.hasAuthorization(['admin']), clubs.reset);
+
 	app.route('/clubs')
 		.get(clubs.list)
 		.post(users.requiresLogin, clubs.create);

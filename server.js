@@ -29,10 +29,10 @@ require('./config/passport')();
 /**
  * Request kimono APIs
  */
-
+/*
 // Get league standings
 request(config.kimono.baseURL + config.kimono.apiURLs.league + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
-	//TODO: This works. Next step will be to set up webhooks to handle kimono POST
+	//TODO: If this works. Next step will be to set up webhooks to handle kimono POST
 	var result = JSON.parse(body);
 	console.log('The last successful run was on ' + result.lastsuccess);
 	console.log('The last new update to data was on ' + result.thisversionrun);
@@ -40,7 +40,7 @@ request(config.kimono.baseURL + config.kimono.apiURLs.league + '?apikey=' + conf
 
 // Get the list of teams in the league
 request(config.kimono.baseURL + config.kimono.apiURLs.teams + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
-	//TODO: This works. Next step will be to set up webhooks to handle kimono POST
+	//TODO: If this works. Next step will be to set up webhooks to handle kimono POST
 	var result = JSON.parse(body);
 	console.log('The last successful run was on ' + result.lastsuccess);
 	console.log('The last new update to data was on ' + result.thisversionrun);
@@ -48,11 +48,11 @@ request(config.kimono.baseURL + config.kimono.apiURLs.teams + '?apikey=' + confi
 
 // Get list of players in the teams
 request(config.kimono.baseURL + config.kimono.apiURLs.players + '?apikey=' + config.kimono.apiKey, function (err, response, body) {
-	//TODO: This works. Next step will be to set up webhooks to handle kimono POST
+	//TODO: If this works. Next step will be to set up webhooks to handle kimono POST
 	var result = JSON.parse(body);
 	console.log('The last successful run was on ' + result.lastsuccess);
 	console.log('The last new update to data was on ' + result.thisversionrun);
-});
+});*/
 
 // Start the app by listening on <port>
 app.listen(config.port);

@@ -23,9 +23,15 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css'
+				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/datatables/media/css/jquery.dataTables.min.css',
+				'public/lib/datatables/media/css/jquery.dataTables_themeroller.css',
+				'public/lib/angular-datatables/dist/datatables.bootstrap.min.css',
+				'public/lib/datatables-scroller/css/dataTables.scroller.css'
 			],
 			js: [
+				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/datatables/media/js/jquery.dataTables.min.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
@@ -33,7 +39,9 @@ module.exports = {
 				'public/lib/angular-sanitize/angular-sanitize.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'
+				'public/lib/angular-datatables/dist/angular-datatables.min.js',
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/datatables-scroller/js/dataTables.scroller.js'
 			]
 		},
 		css: [
