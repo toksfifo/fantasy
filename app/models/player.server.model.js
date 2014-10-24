@@ -22,10 +22,6 @@ var PlayerSchema = new Schema({
 		required: '{PATH} is required!',
 		trim: true
 	},
-	_club: {
-		type: Schema.ObjectId,
-		ref: 'Club'
-	},
 	picture: {
 		type: String,
 		default: 'http://placehold.it/100x150&text=Player+Picture'
@@ -149,10 +145,6 @@ var PlayerSchema = new Schema({
 		set: function (val) {
 			return (val === '-' || val === 'N/A') ? 0 : val;
 		}
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
 	}
 });
 
