@@ -18,6 +18,7 @@ var user, club;
  */
 describe('Club Model Unit Tests:', function() {
 	beforeEach(function(done) {
+
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
@@ -27,7 +28,7 @@ describe('Club Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user.save(function() {
 			club = new Club({
 				name: 'Club Name',
 				user: user
@@ -39,15 +40,15 @@ describe('Club Model Unit Tests:', function() {
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
+			club.name = 'Club';
+			club.whoscoredId = 111;
 			return club.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			club.name = '';
-
+		it('should be able to show an error when try to save without name or whoscoredId', function(done) {
 			return club.save(function(err) {
 				should.exist(err);
 				done();

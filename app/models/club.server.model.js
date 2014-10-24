@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	uniqueValidator = require('mongoose-unique-validator'),
 	Schema = mongoose.Schema;
 
 /**
@@ -12,12 +13,13 @@ var mongoose = require('mongoose'),
 var ClubSchema = new Schema({
 	whoscoredId: {
 		type: Number,
-		require: true
+		required: '{PATH} is required!',
+		unique: true
 	},
 	name: {
 		type: String,
 		default: '',
-		require: true,
+		required: '{PATH} is required!',
 		trim: true
 	},
 	logo: {
@@ -87,5 +89,7 @@ var ClubSchema = new Schema({
 		}
 	]
 });
+
+ClubSchema.plugin(uniqueValidator,  { message: 'Error, expected {PATH} to be unique.' });
 
 mongoose.model('Club', ClubSchema);
