@@ -5,18 +5,19 @@
  */
 var should = require('should'),
 	mongoose = require('mongoose'),
+	request = require('request'),
 	User = mongoose.model('User'),
-	Club = mongoose.model('Club');
+	League = mongoose.model('League');
 
 /**
  * Globals
  */
-var user, club;
+var user, league;
 
 /**
  * Unit tests
  */
-describe('Club Model Unit Tests:', function() {
+describe('League Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
 			firstName: 'Full',
@@ -28,8 +29,8 @@ describe('Club Model Unit Tests:', function() {
 		});
 
 		user.save(function() { 
-			club = new Club({
-				name: 'Club Name',
+			league = new League({
+				name: 'League Name',
 				user: user
 			});
 
@@ -39,16 +40,19 @@ describe('Club Model Unit Tests:', function() {
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
-			return club.save(function(err) {
-				should.not.exist(err);
-				done();
+			request('https://passwd.me/api/1.0/get_password.txt?type=random&length=10', function (err, response, body) {
+				league.passcode = body;
+				return league.save(function(err) {
+					should.not.exist(err);
+					done();
+				});
 			});
 		});
 
 		it('should be able to show an error when try to save without name', function(done) { 
-			club.name = '';
+			league.name = '';
 
-			return club.save(function(err) {
+			return league.save(function(err) {
 				should.exist(err);
 				done();
 			});
@@ -56,7 +60,7 @@ describe('Club Model Unit Tests:', function() {
 	});
 
 	afterEach(function(done) { 
-		Club.remove().exec();
+		League.remove().exec();
 		User.remove().exec();
 
 		done();

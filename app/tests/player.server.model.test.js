@@ -27,7 +27,7 @@ describe('Player Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user.save(function() {
 			player = new Player({
 				name: 'Player Name',
 				user: user
@@ -39,15 +39,15 @@ describe('Player Model Unit Tests:', function() {
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
+			player.name = 'Player';
+			player.whoscoredId = 11111;
 			return player.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			player.name = '';
-
+		it('should be able to show an error when try to save without name or whoscoredId', function(done) {
 			return player.save(function(err) {
 				should.exist(err);
 				done();

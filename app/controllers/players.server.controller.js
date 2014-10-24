@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Players
  */
 exports.list = function(req, res) {
-	var populateQuery = [{path: 'user', select: 'displayName'}, {path: '_club', select: 'name'}];
+	var populateQuery = [{path: 'user', select: 'displayName'}];
 	Player.find().populate(populateQuery).exec(function(err, players) {
 		if (err) {
 			return res.status(400).send({
@@ -89,7 +89,7 @@ exports.list = function(req, res) {
  * Player middleware
  */
 exports.playerByID = function(req, res, next, id) {
-	var populateQuery = [{path: 'user', select: 'displayName'}, {path: '_club', select: 'name'}];
+	var populateQuery = [{path: 'user', select: 'displayName'}];
 	Player.findById(id).populate(populateQuery).exec(function(err, player) {
 		if (err) return next(err);
 		if (! player) return next(new Error('Failed to load Player ' + id));

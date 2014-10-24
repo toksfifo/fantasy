@@ -13,7 +13,7 @@ var TeamSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Team name',
+		required: '{PATH} is required!',
 		trim: true
 	},
 	created: {
@@ -23,6 +23,33 @@ var TeamSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	league: {
+		type: Schema.ObjectId,
+		ref: 'League'
+	},
+	players: [
+		{
+			id: {
+				type: Schema.ObjectId,
+				ref: 'Player'
+			},
+			captain: {
+				type: Boolean,
+				default: false
+			},
+			role: {
+				type: {
+					type: String,
+					enum: ['starter', 'bench', 'reserve']
+				},
+				default: ['reserve']
+			}
+		}
+	],
+	totalPoints: {
+		type: Number,
+		default: 0
 	}
 });
 

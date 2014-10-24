@@ -94,15 +94,6 @@ exports.teamByID = function(req, res, next, id) { Team.findById(id).populate('us
 	});
 };
 
-exports.fetchByUserID = function(req, res, next) {
-	Team.find({ user: req.user }).populate('user', 'displayName').exec(function(err, team) {
-		if (err) return next(err);
-		if (! team) return next(new Error('Failed to load Team for User' + req.user.id));
-		req.team = team ;
-		next();
-	});
-};
-
 /**
  * Team authorization middleware
  */
