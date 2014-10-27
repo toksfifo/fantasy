@@ -14,7 +14,7 @@ angular.module('market').controller('MarketController', ['$scope', '$stateParams
 		$scope.selectedImage = '';
 		$scope.selectedText = '';
 		$scope.someClickHandler = function(info) {
-			$scope.selectedImage = info[0];
+			$scope.selectedImage = info[0].replace('&amp;','&');
 			$scope.selectedText = '<p>' + info[1] + '</p>'+'<p>' + info[3] + '</p>';
 		};
 
