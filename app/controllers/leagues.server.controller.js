@@ -27,7 +27,11 @@ var mongoose = require('mongoose'),
  * Create a League
  */
 exports.create = function(req, res) {
-	var league = new League(req.body);
+	var league = new League({
+		name: req.body.name,
+		user: req.user,
+		members: [req.user]
+	});
 
 	request('https://passwd.me/api/1.0/get_password.txt?type=random&length=10', function (err, response, body) {
 		if (err){

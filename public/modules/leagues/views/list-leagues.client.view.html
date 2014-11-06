@@ -7,7 +7,7 @@
 			<h4 class="list-group-item-heading">
 				<a data-ng-href="#!/leagues/{{league._id}}">{{league.name}}</a>
 				<span class="badge">{{league.teams.length}}</span>
-				<a role="button" class="btn btn-primary pull-right" data-ng-href="#!/leagues/{{league._id}}/join">Join</a>
+				<a role="button" class="btn btn-primary pull-right" data-ng-show="league.isMember(authentication.user)" data-ng-href="#!/leagues/{{league._id}}/join">Join</a>
 			</h4>
 			<small class="list-group-item-text">
 				Created by <span><a data-ng-href="#!/users/{{league.user._id}}">{{league.user.displayName}}</a></span>

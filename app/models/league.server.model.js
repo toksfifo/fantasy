@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	_ = require('lodash');
 
 /**
  * League Schema
@@ -41,5 +42,9 @@ var LeagueSchema = new Schema({
 		required: '{PATH} is required!'
 	}
 });
+
+LeagueSchema.methods.isMember = function (user) {
+	return _.contains(this.members, user);
+};
 
 mongoose.model('League', LeagueSchema);
