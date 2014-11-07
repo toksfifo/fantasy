@@ -27,9 +27,7 @@ angular.module('leagues').controller('LeaguesController', ['$scope', '$statePara
 		$scope.join = function () {
 			var league = $scope.league;
 			if (league.passcode === this.passkey){
-				var members = league.members;
-				members.push($scope.authentication.user);
-				league.members = members;
+				league.members.push($scope.authentication.user);
 
 				// Redirect after save
 				league.$update(function() {
@@ -40,6 +38,8 @@ angular.module('leagues').controller('LeaguesController', ['$scope', '$statePara
 				}, function(errorResponse) {
 					$scope.error = errorResponse.data.message;
 				});
+			}else{
+				$scope.error = 'Invalid league passcode';
 			}
 		};
 
@@ -80,6 +80,13 @@ angular.module('leagues').controller('LeaguesController', ['$scope', '$statePara
 			$scope.league = Leagues.get({ 
 				leagueId: $stateParams.leagueId
 			});
+		};
+
+		$scope.isMemberOf = function(league) {
+			var memberIds = league.members.map(function(member) {
+				return member._id;
+			});
+			return memberIds.indexOf($scope.authentication.user._id) !== -1;
 		};
 	}
 ]);

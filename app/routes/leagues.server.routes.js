@@ -11,7 +11,7 @@ module.exports = function(app) {
 
 	app.route('/leagues/:leagueId')
 		.get(leagues.read)
-		.put(users.requiresLogin, leagues.hasMemberAuthorization, leagues.update)
+		.put(users.requiresLogin, leagues.update)
 		.delete(users.requiresLogin, leagues.hasOwnerAuthorization, leagues.delete);
 
 	// Finish by binding the League middleware

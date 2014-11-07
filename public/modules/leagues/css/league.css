@@ -1,0 +1,7 @@
+.copy-button {
+	text-align: center;
+	border: 1px solid black;
+	background-color: #ccc;
+}
+.copy-button.zeroclipboard-is-hover { background-color: #eee; }
+.copy-button.zeroclipboard-is-active { background-color: #aaa; }
