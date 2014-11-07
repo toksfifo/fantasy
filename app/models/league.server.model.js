@@ -43,8 +43,4 @@ var LeagueSchema = new Schema({
 	}
 });
 
-LeagueSchema.methods.isMember = function (user) {
-	return _.contains(this.members, user);
-};
-
 mongoose.model('League', LeagueSchema);

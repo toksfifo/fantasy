@@ -31,6 +31,7 @@ module.exports = {
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/zeroclipboard/dist/ZeroClipboard.js',
 				'public/lib/datatables/media/js/jquery.dataTables.min.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 

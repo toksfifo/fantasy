@@ -1,21 +1,48 @@
 <section data-ng-controller="LeaguesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="league.name"></h1>
+	<div class="page-header row">
+		<div class="col-sm-6">
+			<h1 data-ng-bind="league.name"></h1>
+		</div>
+		<div class="col-sm-6" style="margin: 25px auto;">
+			<div class="input-group">
+				<input type="text" class="form-control" id="copy-text" value="{{league.passcode}}" readonly="readonly">
+      <span class="input-group-btn">
+        <button title="Copy to clipboard" class="btn btn-default copy-button" data-clipboard-text="{{league.passcode}}"
+								data-copied-hint="Copied!" type="button">
+					<span class="glyphicon glyphicon-share"></span>
+				</button>
+      </span>
+			</div>
+		</div>
 	</div>
-	<div class="pull-right" data-ng-show="authentication.user._id == league.user._id">
-		<a class="btn btn-primary" href="/#!/leagues/{{league._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
+
+	<div class="row">
+		<div class="pull-right" data-ng-show="authentication.user._id == league.user._id">
+			<a class="btn btn-primary" data-ng-href="/#!/leagues/{{league._id}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a class="btn btn-primary" data-ng-click="remove();">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+		</div>
+		<small>
+			<em class="text-muted">
+				Posted on
+				<span data-ng-bind="league.created | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="league.user.displayName"></span>
+			</em>
+		</small>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="league.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="league.user.displayName"></span>
-		</em>
-	</small>
+	<script type="text/javascript">
+		var client = new ZeroClipboard($('.copy-button'));
+		client.on('ready', function (event) {
+			client.on('copy', function (event) {
+				event.clipboardData.setData('text/plain', $('copy-text').val());
+			});
+		});
+		client.on('error', function (event) {
+			ZeroClipboard.destroy();
+		});
+	</script>
 </section>

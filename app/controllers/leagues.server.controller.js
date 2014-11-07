@@ -6,8 +6,8 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	League = mongoose.model('League'),
-	request = require('request'),
 	_ = require('lodash'),
+	randomstring = require('randomstring'),
 	populateLeagueQuery = [
 	{
 		path:'user',
@@ -30,29 +30,19 @@ exports.create = function(req, res) {
 	var league = new League({
 		name: req.body.name,
 		user: req.user,
-		members: [req.user]
+		members: [req.user],
+		passcode: randomstring.generate()
 	});
 
-	request('https://passwd.me/api/1.0/get_password.txt?type=random&length=10', function (err, response, body) {
-		if (err){
+	league.save(function(err) {
+		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		}else{
-			league.passcode = body;
-
-			league.save(function(err) {
-				if (err) {
-					return res.status(400).send({
-						message: errorHandler.getErrorMessage(err)
-					});
-				} else {
-					res.jsonp(league);
-				}
-			});
+		} else {
+			res.jsonp(league);
 		}
 	});
-
 };
 
 /**
