@@ -38,6 +38,8 @@ angular.module('leagues').controller('LeaguesController', ['$scope', '$statePara
 				}, function(errorResponse) {
 					$scope.error = errorResponse.data.message;
 				});
+			}else{
+				$scope.error = 'Invalid league passcode';
 			}
 		};
 
