@@ -163,7 +163,5 @@ angular.module('core').service('Menus', [
 		//Adding the topbar menu
 		this.addMenu('topbar');
 		this.addMenuItem('topbar', 'Home', '/', '/');
-		this.addMenuItem('topbar', 'Team', 'teams/me', '/teams');
-		this.addMenuItem('topbar', 'Market', 'market', '/market');
 	}
 ]);
