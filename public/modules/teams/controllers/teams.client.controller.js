@@ -45,3 +45,35 @@ angular.module('teams').controller('TeamsController', ['$scope', '$stateParams',
 		};
 	}
 ]);
+
+// Create Modal Teams controller
+angular.module('teams').controller('CreateModalTeamController', ['$scope','$modalInstance', 'league', 'Teams',
+	function($scope, $modalInstance, league, Teams ) {
+
+		// Create new Team
+		$scope.create = function() {
+			var team = new Teams ({
+				name: this.name,
+				league: league._id
+			});
+
+			// Redirect after save
+			team.$save(function(response) {
+				league.teams.push(response._id);
+
+				league.$update(function() {
+					//$location.path('leagues/' + league._id);
+				}, function(errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
+				$modalInstance.close(response);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		$scope.cancel = function () {
+			$modalInstance.dismiss('cancel');
+		};
+	}
+]);
