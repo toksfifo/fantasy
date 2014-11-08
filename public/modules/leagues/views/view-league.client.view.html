@@ -38,19 +38,23 @@
 		<div class="page-header">
 			<h3>Teams</h3>
 		</div>
-		<div class="list-group">
-			<a data-ng-repeat="team in league.teams" data-ng-href="#!/teams/{{team._id}}" class="list-group-item">
-				<small class="list-group-item-text">
-					Posted on
-					<span data-ng-bind="team.created | date:'medium'"></span>
-					by
-					<span data-ng-bind="team.user.displayName"></span>
-				</small>
-				<h4 class="list-group-item-heading" data-ng-bind="team.name"></h4>
-			</a>
-		</div>
-		<div class="alert alert-warning text-center" data-ng-hide="league.teams.length !== 0">
+		<div class="alert alert-warning text-center" data-ng-show="!myTeamExists() && isMemberOf()">
 			You have not registered a team for this league yet, why don't you <a href data-ng-click="createTeam()">create one</a>?
+		</div>
+		<div class="alert alert-warning text-center" data-ng-hide="isMemberOf()">
+			You are not a member of this league yet, why don't you <a data-ng-href="#!/leagues/{{league._id}}/join">join now</a>?
+		</div>
+		<div class="list-group">
+			<a data-ng-repeat="team in league.teams" data-ng-href="#!/teams/{{team._id}}" class="list-group-item" ng-class="{myTeam: team.user === authentication.user._id}">
+				<h4 class="list-group-item-heading" data-ng-bind="team.name"></h4>
+				<!-- Find a way to bind the user's display name without errors-->
+				<!--
+				<small class="list-group-item-text">
+					Owned by
+					<span data-ng-bind=""></span>
+				</small>
+				-->
+			</a>
 		</div>
 	</div>
 	<script type="text/javascript">
