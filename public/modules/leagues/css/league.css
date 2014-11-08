@@ -11,3 +11,6 @@ a.myTeam {
 a.myTeam:hover {
 	background-color: #2a6496;
 }
+input[readonly].default-cursor {
+	cursor: default;
+}
