@@ -1,8 +1,8 @@
 'use strict';
 
 // Leagues controller
-angular.module('leagues').controller('LeaguesController', ['$scope', '$controller', '$stateParams', '$location', '$modal', 'Authentication', 'Leagues',
-	function($scope, $controller, $stateParams, $location, $modal, Authentication, Leagues ) {
+angular.module('leagues').controller('LeaguesController', ['$scope', '$stateParams', '$location', '$modal', 'Authentication', 'Leagues',
+	function($scope, $stateParams, $location, $modal, Authentication, Leagues ) {
 		$scope.authentication = Authentication;
 
 		// Create new League
