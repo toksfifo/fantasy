@@ -15,7 +15,7 @@ var mongoose = require('mongoose'),
 	},
 	{
 		path:'teams',
-		select:'_id name'
+		select:'_id name user'
 	},
 	{
 		path: 'members',

@@ -5,3 +5,9 @@
 }
 .copy-button.zeroclipboard-is-hover { background-color: #eee; }
 .copy-button.zeroclipboard-is-active { background-color: #aaa; }
+a.myTeam {
+	background-color: #428bca;
+}
+a.myTeam:hover {
+	background-color: #2a6496;
+}

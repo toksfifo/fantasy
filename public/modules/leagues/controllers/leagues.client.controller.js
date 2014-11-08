@@ -1,8 +1,8 @@
 'use strict';
 
 // Leagues controller
-angular.module('leagues').controller('LeaguesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Leagues',
-	function($scope, $stateParams, $location, Authentication, Leagues ) {
+angular.module('leagues').controller('LeaguesController', ['$scope', '$stateParams', '$location', '$modal', 'Authentication', 'Leagues',
+	function($scope, $stateParams, $location, $modal, Authentication, Leagues) {
 		$scope.authentication = Authentication;
 
 		// Create new League
@@ -83,10 +83,66 @@ angular.module('leagues').controller('LeaguesController', ['$scope', '$statePara
 		};
 
 		$scope.isMemberOf = function(league) {
-			var memberIds = league.members.map(function(member) {
-				return member._id;
+			var _league = league || $scope.league;
+			var members = _league.members;
+			return (members) ? members.map(function(member) {
+						return member._id;
+					}).indexOf($scope.authentication.user._id) !== -1 : false;
+		};
+
+		$scope.myTeamExists = function (league) {
+			var _league = league || $scope.league;
+			var teams = _league.teams;
+			return (teams) ? teams.filter(function (team) {
+						return team.user === $scope.authentication.user._id;
+					})[0]	: false;
+		};
+
+		$scope.createTeam = function () {
+			var modalInstance = $modal.open({
+				templateUrl: 'modules/teams/views/create-team.client.view.html',
+				controller: 'newTeamModalController',
+				resolve: {
+					league: function() {
+						return $scope.league;
+					}
+				}
 			});
-			return memberIds.indexOf($scope.authentication.user._id) !== -1;
+
+			modalInstance.result.then(function (response) {
+				$location.path('teams/' + response._id);
+			});
+		};
+	}
+]);
+
+angular.module('teams').controller('newTeamModalController', ['$scope','$modalInstance', 'league', 'Teams',
+	function($scope, $modalInstance, league, Teams ) {
+
+		// Create new Team
+		$scope.create = function() {
+			var team = new Teams ({
+				name: this.name,
+				league: league._id
+			});
+
+			// Redirect after save
+			team.$save(function(response) {
+				league.teams.push(response._id);
+
+				league.$update(function() {
+					//$location.path('leagues/' + league._id);
+				}, function(errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
+				$modalInstance.close(response);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		$scope.cancel = function () {
+			$modalInstance.dismiss('cancel');
 		};
 	}
 ]);

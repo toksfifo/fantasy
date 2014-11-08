@@ -6,7 +6,21 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Team = mongoose.model('Team'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	populateTeamQuery = [
+	{
+		path:'user',
+		select:'_id displayName'
+	},
+	{
+		path:'league',
+		select:'_id name'
+	},
+	{
+		path: 'players',
+		select: '_id name'
+	}
+];
 
 /**
  * Create a Team
@@ -72,7 +86,8 @@ exports.delete = function(req, res) {
 /**
  * List of Teams
  */
-exports.list = function(req, res) { Team.find().sort('-created').populate('user', 'displayName').exec(function(err, teams) {
+exports.list = function(req, res) {
+	Team.find().sort('-created').populate(populateTeamQuery).exec(function(err, teams) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,7 +101,8 @@ exports.list = function(req, res) { Team.find().sort('-created').populate('user'
 /**
  * Team middleware
  */
-exports.teamByID = function(req, res, next, id) { Team.findById(id).populate('user', 'displayName').exec(function(err, team) {
+exports.teamByID = function(req, res, next, id) {
+	Team.findById(id).populate(populateTeamQuery).exec(function(err, team) {
 		if (err) return next(err);
 		if (! team) return next(new Error('Failed to load Team ' + id));
 		req.team = team ;

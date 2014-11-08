@@ -5,24 +5,6 @@ angular.module('teams').controller('TeamsController', ['$scope', '$stateParams',
 	function($scope, $stateParams, $location, Authentication, Teams ) {
 		$scope.authentication = Authentication;
 
-		// Create new Team
-		$scope.create = function() {
-			// Create new Team object
-			var team = new Teams ({
-				name: this.name
-			});
-
-			// Redirect after save
-			team.$save(function(response) {
-				$location.path('teams/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
 		// Remove existing Team
 		$scope.remove = function( team ) {
 			if ( team ) { team.$remove();
