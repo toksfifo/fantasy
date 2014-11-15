@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'JogaBonito';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'datatables'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'datatables', 'btford.socket-io'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
