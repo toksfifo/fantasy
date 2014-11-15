@@ -6,7 +6,7 @@ angular.module('market').config(['$stateProvider',
 		// Market state routing
 		$stateProvider.
 		state('marketHome', {
-			url: '/market',
+			url: '/market/:leagueId',
 			templateUrl: 'modules/market/views/home-market.client.view.html'
 		});
 	}
