@@ -8,6 +8,9 @@ var mongoose = require('mongoose'),
 	League = mongoose.model('League'),
 	_ = require('lodash'),
 	randomstring = require('randomstring'),
+	leagueCreated,
+	leagueUpdated,
+	leagueDeleted,
 	populateLeagueQuery = [
 	{
 		path:'user',
@@ -40,6 +43,7 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			leagueCreated();
 			res.jsonp(league);
 		}
 	});
@@ -66,6 +70,7 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			leagueUpdated();
 			res.jsonp(league);
 		}
 	});
@@ -83,6 +88,7 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			leagueDeleted();
 			res.jsonp(league);
 		}
 	});
@@ -133,4 +139,16 @@ exports.hasMemberAuthorization = function(req, res, next) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
+};
+
+exports.initSocket = function (io) {
+	leagueCreated = function () {
+		io.sockets.emit('create league');
+	};
+	leagueUpdated = function () {
+		io.sockets.emit('update league');
+	};
+	leagueDeleted = function () {
+		io.sockets.emit('delete league');
+	};
 };

@@ -1,9 +1,34 @@
 'use strict';
 
 // Leagues controller
-angular.module('leagues').controller('LeaguesController', ['$scope', '$stateParams', '$location', '$modal', 'Authentication', 'Leagues',
-	function($scope, $stateParams, $location, $modal, Authentication, Leagues) {
+angular.module('leagues').controller('LeaguesController', ['$scope', '$stateParams', '$location', '$modal', 'Authentication', 'Leagues', 'socket', '_',
+	function($scope, $stateParams, $location, $modal, Authentication, Leagues, socket, _) {
 		$scope.authentication = Authentication;
+		$scope.leagues = [];
+		$scope.league = {};
+		$scope.error = '';
+
+		$scope.$on('socket:error', function (ev, data) {
+			$scope.error = data;
+		});
+
+		socket.on('welcome', function (data) {
+			console.log('This is the league controller subscribing to channel --> ' + data);
+		});
+
+		socket.on('create league', function () {
+			$scope.$apply($scope.find());
+		});
+
+		socket.on('update league', function () {
+			console.log('A League was modified');
+			$scope.$apply($scope.find());
+		});
+
+		socket.on('delete league', function () {
+			console.log('A League was deleted');
+			$scope.$apply($scope.find());
+		});
 
 		// Create new League
 		$scope.create = function() {

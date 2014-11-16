@@ -6,6 +6,10 @@ angular.module('market').controller('MarketController', ['$scope', '$stateParams
 	function($scope, $stateParams, $location, Authentication, Leagues, Players, DTOptionsBuilder, DTColumnDefBuilder, socket ) {
 		$scope.authentication = Authentication;
 
+		$scope.$on('socket:error', function (ev, data) {
+			$scope.error = data;
+		});
+
 		// Find a list of Players
 		$scope.find = function() {
 			$scope.players = Players.query();
@@ -64,12 +68,8 @@ angular.module('market').controller('MarketController', ['$scope', '$stateParams
 
 		};
 
-		socket.on('send:name', function (data) {
-			console.log(data);
-		});
-
 		socket.on('send:time', function (data) {
-			console.log(data);
+			$scope.time = data.time;
 		});
 	}
 ]);

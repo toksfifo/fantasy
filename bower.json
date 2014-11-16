@@ -9,6 +9,7 @@
     "angular-cookies": "~1.2",
     "angular-datatables": "~0.2.1",
     "angular-mocks": "~1.2",
+    "angular-moment": "~0.8.2",
     "angular-resource": "~1.2",
     "angular-sanitize": "~1.2",
     "angular-socket-io": "~0.6.0",
@@ -16,6 +17,7 @@
     "angular-ui-router": "~0.2.10",
     "bootstrap": "~3",
     "datatables-scroller": "~1.2.2",
-    "zeroclipboard": "~2.1.6"
+    "zeroclipboard": "~2.1.6",
+    "lodash": "~2.4.1"
   }
 }

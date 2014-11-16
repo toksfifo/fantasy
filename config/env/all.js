@@ -31,6 +31,7 @@ module.exports = {
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/lodash/dist/lodash.js',
 				'public/lib/zeroclipboard/dist/ZeroClipboard.js',
 				'public/lib/datatables/media/js/jquery.dataTables.min.js',
 				'public/lib/angular/angular.js',
@@ -43,7 +44,9 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-datatables/dist/angular-datatables.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'public/lib/datatables-scroller/js/dataTables.scroller.js'
+				'public/lib/datatables-scroller/js/dataTables.scroller.js',
+				'public/lib/moment/moment.js',
+				'public/lib/angular-moment/angular-moment.js'
 			]
 		},
 		css: [

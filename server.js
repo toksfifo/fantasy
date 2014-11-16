@@ -5,8 +5,7 @@
 var init = require('./config/init')(),
 	config = require('./config/config'),
 	request = require('request'),
-	mongoose = require('mongoose'),
-	http = require('http');
+	mongoose = require('mongoose');
 
 /**
  * Main application entry file.
@@ -28,15 +27,20 @@ var app = require('./config/express')(db);
 require('./config/passport')();
 
 // Socket.io Communication
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
-io.sockets.on('connection', require('./config/socket'));
+var io = require('socket.io').listen(
+	// Start the app by listening on <port>
+	app.listen(config.port, function () {
+		// Logging initialization
+		console.log('MEAN.JS application started on port ' + config.port);
+	})
+);
 
-// Start the app by listening on <port>
-//app.listen(config.port);
-server.listen(config.port, function () {
-	// Logging initialization
-	console.log('MEAN.JS application started on port ' + config.port);
+var leagueCtrl = require('./app/controllers/leagues');
+var teamCtrl = require('./app/controllers/teams');
+io.sockets.on('connection', function (socket) {
+	socket.emit('welcome', socket.id);
+	leagueCtrl.initSocket(io);
+	teamCtrl.initSocket(io);
 });
 
 // Expose app

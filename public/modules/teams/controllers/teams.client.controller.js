@@ -1,9 +1,35 @@
 'use strict';
 
 // Teams controller
-angular.module('teams').controller('TeamsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Teams',
-	function($scope, $stateParams, $location, Authentication, Teams ) {
+angular.module('teams').controller('TeamsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Teams', 'socket',
+	function($scope, $stateParams, $location, Authentication, Teams, socket ) {
 		$scope.authentication = Authentication;
+		$scope.teams = [];
+		$scope.team = {};
+		$scope.error = '';
+
+		$scope.$on('socket:error', function (ev, data) {
+			$scope.error = data;
+		});
+
+		socket.on('welcome', function (data) {
+			console.log('This is the team controller subscribing to channel --> ' + data);
+		});
+
+		socket.on('create team', function () {
+			console.log('A new Team has been added');
+			$scope.$apply($scope.find());
+		});
+
+		socket.on('update team', function () {
+			console.log('A Team was modified');
+			$scope.$apply($scope.find());
+		});
+
+		socket.on('delete team', function () {
+			console.log('A Team was deleted');
+			$scope.$apply($scope.find());
+		});
 
 		// Remove existing Team
 		$scope.remove = function( team ) {
@@ -49,6 +75,11 @@ angular.module('teams').controller('TeamsController', ['$scope', '$stateParams',
 // Create Modal Teams controller
 angular.module('teams').controller('CreateModalTeamController', ['$scope','$modalInstance', 'league', 'Teams',
 	function($scope, $modalInstance, league, Teams ) {
+		$scope.error = '';
+
+		$scope.$on('socket:error', function (ev, data) {
+			$scope.error = data;
+		});
 
 		// Create new Team
 		$scope.create = function() {

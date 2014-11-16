@@ -7,6 +7,9 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Team = mongoose.model('Team'),
 	_ = require('lodash'),
+	teamCreated,
+	teamUpdated,
+	teamDeleted,
 	populateTeamQuery = [
 	{
 		path:'user',
@@ -35,6 +38,7 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			teamCreated();
 			res.jsonp(team);
 		}
 	});
@@ -61,6 +65,7 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			teamUpdated();
 			res.jsonp(team);
 		}
 	});
@@ -78,6 +83,7 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			teamDeleted();
 			res.jsonp(team);
 		}
 	});
@@ -118,4 +124,16 @@ exports.hasAuthorization = function(req, res, next) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
+};
+
+exports.initSocket = function (io) {
+	teamCreated = function () {
+		io.sockets.emit('create team');
+	};
+	teamUpdated = function () {
+		io.sockets.emit('update team');
+	};
+	teamDeleted = function () {
+		io.sockets.emit('delete team');
+	};
 };
