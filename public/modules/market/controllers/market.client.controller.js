@@ -2,7 +2,8 @@
 /*global $:false, jQuery:false */
 
 // Teams controller
-angular.module('market').controller('MarketController', ['$scope', '$stateParams', '$location', 'Authentication', 'Leagues', 'Players', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'socket',
+angular.module('market').controller('MarketController', ['$scope', '$stateParams', '$location', 'Authentication',
+	'Leagues', 'Players', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'socket',
 	function($scope, $stateParams, $location, Authentication, Leagues, Players, DTOptionsBuilder, DTColumnDefBuilder, socket ) {
 		$scope.authentication = Authentication;
 

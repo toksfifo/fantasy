@@ -40,7 +40,35 @@ var LeagueSchema = new Schema({
 	passcode: {
 		type: String,
 		required: '{PATH} is required!'
+	},
+	playerMapping: [
+		{
+			playerId: {
+				type: Schema.ObjectId,
+				ref: 'Player'
+			},
+			teamId: {
+				type: Schema.ObjectId,
+				ref: 'Team'
+			}
+		}
+	]
+},
+{
+	toJSON: {
+		methods: true
 	}
 });
+
+LeagueSchema.methods.assignPlayerToTeam = function (playerId, teamId) {
+	this.playerMapping.push({playerId: playerId, teamId: teamId});
+};
+
+LeagueSchema.methods.playerAvailable = function (playerId) {
+	return (!_.contains(_.map(this.playerMapping, function (mapping) {
+				return mapping.playerId;
+			}), playerId)
+	);
+};
 
 mongoose.model('League', LeagueSchema);
